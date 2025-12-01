@@ -1,0 +1,50 @@
+<div class="login-container">
+
+  <h1 class="title">HRConnect</h1>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+    <label>Email</label>
+    <input
+      type="email"
+      formControlName="email"
+      placeholder="Enter your email"
+    />
+
+    @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) {
+      <p class="error">Please enter a valid email.</p>
+    }
+
+    <label>Password</label>
+    <div class="password-group">
+      <input
+        [type]="hidePassword ? 'password' : 'text'"
+        formControlName="password"
+        placeholder="Enter your password"
+      />
+
+      <button
+        type="button"
+        class="toggle"
+        (click)="hidePassword = !hidePassword">
+        {{ hidePassword ? 'Show' : 'Hide' }}
+      </button>
+    </div>
+
+    @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
+      <p class="error">Password must be at least 8 characters and contain numbers and letters.</p>
+    }
+
+    <label class="remember">
+      <input type="checkbox" formControlName="remember" />
+      Remember Me
+    </label>
+
+    <button class="login-btn" type="submit" [disabled]="loginForm.invalid">
+      Login
+    </button>
+
+    <a class="forgot" href="#">Forgot Password?</a>
+
+  </form>
+</div>

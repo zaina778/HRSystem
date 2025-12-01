@@ -1,0 +1,59 @@
+<div class="dashboard-container">
+
+  <h2 class="welcome">Welcome, {{ username }} </h2>
+
+  <div class="toggle">
+    <button
+      [class.active]="timeRange === 'monthly'"
+      (click)="changeRange('monthly')">
+      Monthly
+    </button>
+
+    <button
+      [class.active]="timeRange === 'annual'"
+      (click)="changeRange('annual')">
+      Annual
+    </button>
+  </div>
+
+  <div class="card-grid">
+
+    <div class="card">
+      <h3>Total Employees</h3>
+      <p class="number">{{ analytics.totalEmployees }}</p>
+      <span>{{ analytics.activeEmployees }} active / {{ analytics.inactiveEmployees }} inactive</span>
+    </div>
+
+    <div class="card">
+      <h3>Pending Leave Requests</h3>
+      <p class="number">{{ analytics.pendingLeave }}</p>
+    </div>
+
+    <div class="card">
+      <h3>Average Tenure</h3>
+      <p class="number">{{ analytics.avgTenure }} yrs</p>
+    </div>
+
+    <div class="card">
+      <h3>Upcoming Birthdays</h3>
+      <ul>
+        @for (b of analytics.birthdays; track b.name) {
+          <li>
+            {{ b.name }} — {{ b.date }}
+          </li>
+        }
+      </ul>
+
+    </div>
+
+  </div>
+
+  <h2 class="nav-intro">Where would you like to go?</h2>
+  <div class="nav-buttons">
+    <button routerLink="/overview">Overview</button>
+    <button routerLink="/employee-directory">Employee Directory</button>
+    <button routerLink="/scheduling-info">Scheduling Info</button>
+    <button routerLink="/profile">Profile Settings</button>
+  </div>
+
+</div>

@@ -1,0 +1,88 @@
+<div class="overview-container">
+
+  <h1 class="page-title">Overview</h1>
+
+  <div class="card-grid">
+    <div class="card">
+      <h3>Active Employees</h3>
+      <p class="number">{{ activeEmployeesCount }}</p>
+    </div>
+
+    <div class="card">
+      <h3>On Leave</h3>
+      <p class="number">{{ onLeaveEmployeesCount }}</p>
+    </div>
+
+    <div class="card">
+      <h3>Inactive Employees</h3>
+      <p class="number">{{ inactiveEmployeesCount }}</p>
+    </div>
+  </div>
+
+  <div class="card weekly-card">
+    <h3>This Week</h3>
+    <button class="go-btn" (click)="goToSchedule()">Go to Scheduling Info</button>
+    <div class="week-row">
+      @for (d of weeklySchedule; track d.day) {
+        <div class="day-box">
+          <div class="day-label">{{ d.day }}</div>
+
+          @if (d.unavailable.length === 0 && !d.meeting) {
+            <div class="status">Fully Staffed</div>
+          }
+
+          @if (d.unavailable.length > 0) {
+            <div class="status unavailable">
+              @for (person of d.unavailable; track person) {
+                <div>{{ person }} Unavailable</div>
+              }
+            </div>
+          }
+
+          @if (d.meeting) {
+            <div class="meeting">{{ d.meeting }}</div>
+          }
+
+          <div class="shift">Shifts: 9AM–5PM</div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <h3>Recent Activity</h3>
+      <ul class="activity-list">
+        @for (item of recentActivity; track item) {
+          <li>
+            <span class="dot"></span>{{ item }}
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Organization Snapshot</h3>
+
+      <div class="org-grid">
+        <div class="org-item">
+          <span class="label">Departments   </span>
+          <span class="value">{{ orgSnapshot.departments }}</span>
+        </div>
+        <div class="org-item">
+          <span class="label">Avg. Tenure   </span>
+          <span class="value">{{ orgSnapshot.avgTenureYears }} yrs</span>
+        </div>
+        <div class="org-item">
+          <span class="label">Hires This Year   </span>
+          <span class="value">{{ orgSnapshot.hiresThisYear }}</span>
+        </div>
+        <div class="org-item">
+          <span class="label">Turnover This Year   </span>
+          <span class="value">{{ orgSnapshot.turnoverThisYear }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,99 @@
+<div class="employees-container">
+
+  <h2 class="page-title">Employee Directory</h2>
+  <button class="add-btn" (click)="openAddEmployee()">
+    + Add Employee
+  </button>
+
+  <table class="employee-table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Status</th>
+      <th>Date Joined</th>
+      <th>Salary</th>
+      <th>Edit</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (emp of employees; track emp.id) {
+        <tr>
+          <td>{{ emp.id }}</td>
+          <td>{{ emp.name }}</td>
+          <td>{{ emp.email }}</td>
+
+          <td>
+        <span
+          class="status"
+          [class.active]="emp.status === UserStatus.ACTIVE"
+          [class.inactive]="emp.status === UserStatus.INACTIVE">
+          {{ emp.status }}
+        </span>
+          </td>
+
+          <td>{{ emp.dateJoined }}</td>
+          <td>${{ emp.salary | number }}</td>
+
+          <td>
+            <button
+              type="button"
+              class="edit-btn"
+              (click)="editEmployee(emp); $event.stopPropagation();">
+              Edit
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+
+  </table>
+
+  @if (editingEmployee) {
+    <div class="modal-backdrop" (click)="cancelEdit()"></div>
+  }
+
+  @if (editingEmployee) {
+    <div class="modal">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+
+        <h3>Edit Employee</h3>
+
+        <form class="modal-form">
+
+          <label>ID</label>
+          <input type="number" [value]="editingEmployee.id" name="id" disabled>
+
+          <label>Name</label>
+          <input type="text" [(ngModel)]="editingEmployee.name" name="name">
+
+          <label>Email</label>
+          <input
+            type="email"
+            [(ngModel)]="editingEmployee.email"
+            name="email"
+            [disabled]="editingEmployee.id <= employees.length"
+          >
+
+
+          <label>Status</label>
+          <select [(ngModel)]="editingEmployee.status" name="status">
+            <option [value]="UserStatus.ACTIVE">Active</option>
+            <option [value]="UserStatus.INACTIVE">Inactive</option>
+          </select>
+
+          <label>Salary</label>
+          <input type="number" [(ngModel)]="editingEmployee.salary" name="salary">
+
+          <div class="modal-buttons">
+            <button type="button" class="save-btn" (click)="saveEmployee()">Save</button>
+            <button type="button" class="cancel-btn" (click)="cancelEdit()">Cancel</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  }
+
+</div>

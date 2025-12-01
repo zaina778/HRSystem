@@ -1,0 +1,145 @@
+<div class="scheduling-container">
+  <h1 class="page-title">Scheduling Info</h1>
+  <h3> Click on date to view details and edit</h3>
+  <div class="top-row">
+    <div class="toggle">
+      <button [class.active]="viewMode === 'monthly'" (click)="viewMode = 'monthly'">Monthly</button>
+      <button [class.active]="viewMode === 'weekly'" (click)="viewMode = 'weekly'">Weekly</button>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <h3>Active Shifts Today</h3>
+        <p class="number">8</p>
+      </div>
+      <div class="stat-card">
+        <h3>Pending Leave</h3>
+        <p class="number">3</p>
+      </div>
+      <div class="stat-card">
+        <h3>Total Hours Scheduled</h3>
+        <p class="number">42</p>
+      </div>
+    </div>
+  </div>
+
+  @if (viewMode === 'weekly') {
+    <div class="week-grid">
+      @for (d of weeklySummary; track d.day) {
+        <div class="week-box">
+          <div class="week-day">{{ d.day }}</div>
+
+          @if (d.unavailable.length === 0 && !d.meeting) {
+            <div class="week-status">Fully Staffed</div>
+          }
+
+          @if (d.unavailable.length > 0) {
+            <div class="week-status unavailable">
+              {{ d.unavailable.length }} Person Unavailable
+            </div>
+          }
+
+          @if (d.meeting) {
+            <div class="week-meeting">{{ d.meeting }}</div>
+          }
+
+          <div class="week-shift">Shifts: 9AM–5PM</div>
+        </div>
+      }
+    </div>
+  }
+
+  @if (viewMode === 'monthly') {
+    <div class="calendar">
+      <div class="calendar-header">
+        @for (day of daysOfWeek; track day) {
+          <div class="calendar-day-header">{{ day }}</div>
+        }
+      </div>
+
+      @for (week of calendarDays; track week) {
+        <div class="calendar-row">
+          @for (cell of week; let i = $index; track cell) {
+            <div
+              class="calendar-cell"
+              [class.weekend]="i === 0 || i === 6"
+              (click)="cell && i !== 0 && i !== 6 ? openModal(cell) : null">
+
+
+              @if (cell) {
+                <div class="cell-date">{{ cell.date }}</div>
+
+                @if (cell.meeting) {
+                  <div class="cell-meeting">{{ cell.meeting }}</div>
+                }
+
+                @if (cell.unavailable.length > 0) {
+                  <div class="cell-unavailable">{{ cell.unavailable.length }} Unavailable</div>
+                }
+
+                @if ((cell.unavailable.length === 0 && !cell.meeting) && (i !== 0 && i !== 6)) {
+                  <div class="cell-ok">Fully Staffed</div>
+
+
+                }
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+  @if (modalOpen) {
+    <div class="modal-backdrop" (click)="closeModal()"></div>
+
+    <div class="modal">
+      <button class="close-btn" (click)="closeModal()">✕</button>
+
+      @if (!editMode) {
+        <h2>Schedule Details</h2>
+
+        <div class="modal-section">
+          <strong>Working:</strong>
+          <ul class="modal-list">
+            @for (w of modalData.working; track w) {
+              <li>{{ w }}</li>
+            }
+          </ul>
+        </div>
+
+        <p><strong>Unavailable:</strong> {{ modalData.unavailable.join(', ') }}</p>
+
+        @if (modalData.meeting) {
+          <p><strong>Meeting:</strong> {{ modalData.meeting }}</p>
+        }
+
+        <button class="edit-btn" (click)="startEdit()">Edit Shifts</button>
+      }
+
+      @if (editMode) {
+        <h2>Edit Shifts</h2>
+
+        <form [formGroup]="form" class="edit-form">
+          <label>Employee:</label>
+          <select formControlName="employee">
+            <option value="">Select Employee</option>
+            @for (emp of activeEmployees; track emp) {
+              <option [value]="emp">{{ emp }}</option>
+            }
+          </select>
+
+          <label>Status:</label>
+          <div class="status-options">
+            <label><input type="radio" formControlName="status" value="available"> Available</label>
+            <label><input type="radio" formControlName="status" value="unavailable"> Unavailable</label>
+          </div>
+
+          <div class="modal-buttons">
+            <button class="save-btn" (click)="saveShift()">Save</button>
+            <button class="cancel-btn" (click)="editMode = false">Cancel</button>
+          </div>
+        </form>
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,161 @@
+@import '../../../assets/variables/colors';
+
+.overview-container {
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  color: $text-dark;
+  font-family: 'Inter', sans-serif;
+}
+
+.page-title {
+  font-size: 2.8rem;
+  font-weight: 600;
+  color: $primary-blue;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  color: $text-dark;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+
+  @media (max-width: 50rem) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  padding: 1.2rem;
+  border-radius: 0.625rem;
+  background: $white;
+  border: 0.0625rem solid $gray-light;
+
+  h3 {
+    margin: 0 0 0.5rem;
+    color: $primary-blue;
+  }
+
+  .number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: $accent-blue;
+  }
+}
+
+.weekly-card {
+  margin: 1.5rem 0;
+}
+
+.week-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.day-box {
+  background: $gray-light;
+  padding: 1rem;
+  border-radius: 0.625rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-height: 7.5rem;
+}
+
+.day-label {
+  font-weight: 600;
+  color: $primary-blue;
+  font-size: 1rem;
+}
+
+.status {
+  color: $primary-blue;
+  font-size: 0.9rem;
+}
+
+.unavailable {
+  color: red;
+  font-weight: 600;
+}
+
+.meeting {
+  color: $accent-blue;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.shift {
+  margin-top: auto;
+  font-size: 0.85rem;
+  color: $text-dark;
+}
+
+.activity-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  li {
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background: $primary-blue;
+  border-radius: 50%;
+}
+
+.org-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.org-item {
+  background: $gray-light;
+  padding: 1rem;
+  border-radius: 0.625rem;
+
+  .label {
+    color: #6b7280;
+    font-size: 0.85rem;
+  }
+
+  .value {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: $primary-blue;
+  }
+}
+.go-btn {
+  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: $primary-blue;
+  color: $white;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: 0.2s ease;
+
+  &:hover {
+    background: $accent-blue;
+  }
+}
+

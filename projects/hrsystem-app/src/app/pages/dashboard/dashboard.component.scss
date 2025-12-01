@@ -1,0 +1,80 @@
+@import '../../../assets/variables/colors';
+
+.dashboard-container {
+  max-width: 65rem;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  color: $text-dark;
+}
+
+.welcome {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: $primary-blue;
+}
+
+.toggle {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    border: 0.0625rem solid $gray-light;
+    background: $white;
+    cursor: pointer;
+    color: $text-dark;
+
+    &.active {
+      background: $primary-blue;
+      color: $white;
+      border-color: $primary-blue;
+    }
+  }
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+}
+
+.card {
+  padding: 1.2rem;
+  border-radius: 0.625rem;
+  background: $white;
+  border: 0.0625rem solid $gray-light;
+
+  h3 {
+    margin: 0 0 0.5rem;
+    color: $primary-blue;
+  }
+
+  .number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: $accent-blue;
+  }
+}
+
+.nav-buttons {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+
+  button {
+    flex: 1;
+    padding: 0.8rem;
+    background: $primary-blue;
+    color: $white;
+    border-radius: 0.375rem;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background: $accent-blue;
+    }
+  }
+}

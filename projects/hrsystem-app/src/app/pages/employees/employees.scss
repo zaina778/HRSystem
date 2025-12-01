@@ -1,0 +1,172 @@
+@use '../../../assets/variables/colors' as *;
+
+.employees-container {
+  padding: 2rem;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: $primary-blue;
+  margin-bottom: 1.5rem;
+}
+
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: $white;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.05);
+  border-radius: 0.625rem;
+  overflow: hidden;
+}
+
+.employee-table th {
+  background: $primary-blue;
+  color: $white;
+  text-align: left;
+  padding: 1rem;
+  font-weight: 600;
+}
+
+.employee-table td {
+  padding: 0.9rem 1rem;
+  border-bottom: 0.0625rem solid $gray-light;
+  color: $text-dark;
+  font-size: 0.95rem;
+}
+
+.employee-table tr:hover {
+  background: $gray-light;
+  cursor: pointer;
+}
+
+.status {
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.375rem;
+  color: $white;
+  text-transform: capitalize;
+  font-size: 0.85rem;
+}
+
+.status.active {
+  background: #16a34a;
+}
+
+.status.inactive {
+  background: #dc2626;
+}
+
+.edit-btn {
+  padding: 0.4rem 0.8rem;
+  background: $accent-blue;
+  color: $white;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.edit-btn:hover {
+  background: $primary-blue;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(0.2rem);
+  z-index: 10;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 11;
+  width: 30rem;
+  max-width: 90%;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.modal-content {
+  background: $white;
+  padding: 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.modal-content h3 {
+  margin-bottom: 1.5rem;
+  color: $primary-blue;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.modal-form label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  color: $text-dark;
+}
+
+.modal-form input,
+.modal-form select {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.save-btn {
+  background: $primary-blue;
+  color: $white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: $gray-light;
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+.add-btn {
+  background: $primary-blue;
+  color: $white;
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 1.2rem;
+
+  &:hover {
+    background: $accent-blue;
+  }
+}
