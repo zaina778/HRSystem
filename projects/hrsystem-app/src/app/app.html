@@ -1,1 +1,11 @@
-<router-outlet></router-outlet>
+@if (!router.url.includes('login')) {
+  <div class="layout">
+    <app-sidebar></app-sidebar>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+} @else {
+  <router-outlet></router-outlet>
+}

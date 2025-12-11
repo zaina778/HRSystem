@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../shared/services/authService/auth.service';
+
 
 @Component({
   selector: 'app-login',
@@ -27,16 +29,14 @@ export class LoginComponent {
     remember: new FormControl(false),
   });
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private auth: AuthService) {
+  }
+
 
   onSubmit() {
     if (this.loginForm.valid) {
-      const email = this.loginForm.get('email')?.value;
-
-      // Save user email to local storage
-      localStorage.setItem('userEmail', email!);
-
-      // Navigate to dashboard
+      const email = this.loginForm.get('email')?.value!;
+      this.auth.login(email);
       this.router.navigate(['/dashboard']);
     }
   }

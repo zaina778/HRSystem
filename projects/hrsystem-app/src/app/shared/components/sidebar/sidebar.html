@@ -1,0 +1,27 @@
+<div class="sidebar" [class.expanded]="isExpanded">
+
+  <div class="top">
+    <div class="logo">HR</div>
+
+    <button class="toggle-btn" (click)="toggleSidebar()">
+      {{ isExpanded ? '◀' : '▶' }}
+    </button>
+  </div>
+
+  @if (isExpanded) {
+    <nav class="nav-links">
+      <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      <a routerLink="/overview" routerLinkActive="active">Overview</a>
+      <a routerLink="/employee-directory" routerLinkActive="active">Employees</a>
+      <a routerLink="/scheduling-info" routerLinkActive="active">Scheduling</a>
+      <a routerLink="/profile-settings" routerLinkActive="active">Profile Settings</a>
+    </nav>
+  }
+
+  @if (isExpanded) {
+    <button class="logout-btn" (click)="logout()">
+      Logout
+    </button>
+  }
+
+</div>

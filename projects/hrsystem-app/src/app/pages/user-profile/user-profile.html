@@ -1,1 +1,81 @@
-<p>user-profile works!</p>
+<div class="profile-container">
+
+  <h1 class="title">Profile Settings</h1>
+
+  <div class="profile-grid">
+
+    <div class="photo-section">
+      <img
+        class="profile-photo"
+        [src]="user.profilePhoto || defaultAvatar"
+        alt="Profile Photo"
+      />
+
+      <label class="upload-btn">
+        Change Photo
+        <input type="file" accept="image/png, image/jpeg" (change)="onPhotoSelected($event)" />
+      </label>
+
+      <button class="reset-btn" (click)="resetPhoto()">
+        Remove Photo
+      </button>
+    </div>
+
+    <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="profile-form">
+
+      <label>Full Name</label>
+      <input type="text" formControlName="fullName" />
+
+      <label>Email</label>
+      <input type="text" [value]="user.email" disabled />
+
+      <label>Role</label>
+      <input type="text" [value]="user.role" disabled />
+
+      <label>Department</label>
+      <input type="text" [value]="user.department" disabled />
+
+      <button class="save-btn" type="submit">Save Changes</button>
+
+    </form>
+
+  </div>
+
+  <button class="password-toggle" (click)="openPasswordModal()">
+    Change Password
+  </button>
+
+  @if (showPasswordModal) {
+
+    <div class="modal-overlay" (click)="closePasswordModal()"></div>
+
+    <div class="modal">
+      <button class="modal-close" (click)="closePasswordModal()">✕</button>
+
+      <h2>Change Password</h2>
+
+      <form [formGroup]="passwordForm" (ngSubmit)="savePassword()">
+
+        <label>New Password</label>
+        <input
+          [type]="hideNewPassword ? 'password' : 'text'"
+          formControlName="newPassword"
+        />
+
+        <label>Confirm Password</label>
+        <input
+          [type]="hideConfirmPassword ? 'password' : 'text'"
+          formControlName="confirmPassword"
+        />
+
+        <div class="modal-buttons">
+          <button type="submit" class="save-btn">Save</button>
+        </div>
+
+      </form>
+    </div>
+  }
+
+  <button class="logout-btn" (click)="logout()">Logout</button>
+
+</div>
