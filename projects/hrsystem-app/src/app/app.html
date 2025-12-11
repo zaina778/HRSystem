@@ -1,8 +1,8 @@
 @if (!router.url.includes('login')) {
   <div class="layout">
-    <app-sidebar></app-sidebar>
+    <app-sidebar (expandedChange)="sidebarExpanded = $event"></app-sidebar>
 
-    <div class="content">
+    <div class="content" [class.shifted]="sidebarExpanded">
       <router-outlet></router-outlet>
     </div>
   </div>

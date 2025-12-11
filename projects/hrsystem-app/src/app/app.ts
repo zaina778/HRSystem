@@ -11,5 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./app.scss']
 })
 export class AppComponent {
+  sidebarExpanded = false;
+
   constructor(public router: Router) {}
 }

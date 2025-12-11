@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { UserService } from '../../shared/services/userService/user.service';
 import { AuthService } from '../../shared/services/authService/auth.service';
 
 @Component({
@@ -23,10 +24,10 @@ export class UserProfileComponent implements OnInit {
   hideNewPassword = true;
   hideConfirmPassword = true;
 
-  constructor(private auth: AuthService) {}
+  constructor(private userService: UserService, private auth: AuthService) {}
 
   ngOnInit() {
-    this.user = this.auth.getUser();
+    this.user = this.userService.getUser();
 
     this.profileForm = new FormGroup({
       fullName: new FormControl(this.user.fullName, [Validators.required])
@@ -52,15 +53,14 @@ export class UserProfileComponent implements OnInit {
 
   saveProfile() {
     if (this.profileForm.valid) {
-      this.auth.updateUser({
+      this.userService.updateUser({
         fullName: this.profileForm.value.fullName!,
       });
-
     }
   }
+
   savePassword() {
     if (this.passwordForm.valid) {
-
       const newPass = this.passwordForm.get('newPassword')?.value!;
       const confirm = this.passwordForm.get('confirmPassword')?.value!;
 
@@ -69,7 +69,7 @@ export class UserProfileComponent implements OnInit {
         return;
       }
 
-      this.auth.updatePassword(newPass);
+      this.userService.updatePassword(newPass);
       alert("Password updated!");
       this.passwordForm.reset();
       this.closePasswordModal();
@@ -82,14 +82,15 @@ export class UserProfileComponent implements OnInit {
 
     const reader = new FileReader();
     reader.onload = () => {
-      this.auth.updateProfilePhoto(reader.result as string);
-      this.user = this.auth.getUser();
+      this.userService.updateProfilePhoto(reader.result as string);
+      this.user = this.userService.getUser();
     };
     reader.readAsDataURL(file);
   }
+
   resetPhoto() {
-    this.auth.updateProfilePhoto(null);
-    this.user = this.auth.getUser();
+    this.userService.updateProfilePhoto(null);
+    this.user = this.userService.getUser();
   }
 
   logout() {

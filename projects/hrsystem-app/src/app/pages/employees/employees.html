@@ -1,9 +1,22 @@
 <div class="employees-container">
 
-  <h2 class="page-title">Employee Directory</h2>
-  <button class="add-btn" (click)="openAddEmployee()">
-    + Add Employee
-  </button>
+  <div class="top-row">
+    <h2 class="page-title">Employee Directory</h2>
+
+    <div class="actions">
+      <input
+        type="text"
+        [(ngModel)]="searchText"
+        placeholder="Search employees..."
+        class="search-input"
+      />
+
+      <button class="add-btn" (click)="openAddEmployee()">
+        + Add Employee
+      </button>
+    </div>
+  </div>
+
 
   <table class="employee-table">
     <thead>
@@ -18,7 +31,8 @@
     </tr>
     </thead>
     <tbody>
-      @for (emp of employees; track emp.id) {
+      @for (emp of employees | filterEmployees: searchText; track emp.id) {
+
         <tr>
           <td>{{ emp.id }}</td>
           <td>{{ emp.name }}</td>

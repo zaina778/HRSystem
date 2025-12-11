@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../shared/services/authService/auth.service';
-
+import { UserService } from '../../shared/services/userService/user.service';
 
 @Component({
   selector: 'app-login',
@@ -29,16 +29,18 @@ export class LoginComponent {
     remember: new FormControl(false),
   });
 
-  constructor(private router: Router, private auth: AuthService) {
-  }
-
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+    private userService: UserService
+  ) {}
 
   onSubmit() {
     if (this.loginForm.valid) {
       const email = this.loginForm.get('email')?.value!;
-      this.auth.login(email);
+      this.auth.login();
+      this.userService.setEmail(email);
       this.router.navigate(['/dashboard']);
     }
   }
-
 }

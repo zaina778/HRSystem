@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { UserService } from '../../shared/services/userService/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,12 +14,11 @@ export class DashboardComponent {
 
   username = '';
 
-  ngOnInit() {
-    const email = localStorage.getItem('userEmail');
+  constructor(private userService: UserService) {}
 
-    if (email) {
-      this.username = email.split('@')[0];
-    }
+  ngOnInit() {
+    const user = this.userService.getUser();
+    this.username = user.fullName;  // ← This is the name generated from email
   }
 
   timeRange: 'monthly' | 'annual' = 'monthly';
@@ -48,15 +48,13 @@ export class DashboardComponent {
       {name: 'Safiyya', date: 'Jul 8'}
     ]
   };
+
   analytics = this.monthlyAnalytics;
 
   changeRange(range: 'monthly' | 'annual') {
     this.timeRange = range;
-
-    if (range === 'monthly') {
-      this.analytics = this.monthlyAnalytics;
-    } else {
-      this.analytics = this.annualAnalytics;
-    }
+    this.analytics = range === 'monthly'
+      ? this.monthlyAnalytics
+      : this.annualAnalytics;
   }
 }

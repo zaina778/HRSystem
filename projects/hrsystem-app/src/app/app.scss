@@ -3,7 +3,12 @@
 }
 
 .content {
-  margin-left: 4rem;
+  margin-left: 4.375rem;
   padding: 1rem;
   width: 100%;
+  transition: margin-left 0.3s ease;
+}
+
+.content.shifted {
+  margin-left: 14.375rem;
 }
