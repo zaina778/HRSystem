@@ -18,7 +18,7 @@ export class DashboardComponent {
 
   ngOnInit() {
     const user = this.userService.getUser();
-    this.username = user.fullName;  // ← This is the name generated from email
+    this.username = user.fullName;
   }
 
   timeRange: 'monthly' | 'annual' = 'monthly';
